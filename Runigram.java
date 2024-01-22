@@ -29,6 +29,8 @@ public class Runigram {
         print(flippedVertically(tinypic));
         System.out.println();
         print(grayScaled(tinypic));
+        System.out.println();
+        print(scaled(tinypic,3,5));
         // Write here whatever code you need in order to test your work.
         // You can reuse / overide the contents of the imageOut array.
     }
@@ -156,8 +158,21 @@ public class Runigram {
      * The image is scaled (resized) to have the given width and height.
      */
     public static Color[][] scaled(Color[][] image, int width, int height) {
-        //// Replace the following statement with your code
-        return null;
+        int originalWidth = image[0].length;
+        int originalHeight = image.length;
+
+        Color[][] scaledImage = new Color[height][width];
+
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                int originalI = i * originalHeight / height;
+                int originalJ = j * originalWidth / width;
+
+                scaledImage[i][j] = image[originalI][originalJ];
+            }
+        }
+
+        return scaledImage;
     }
 
     /**
@@ -167,8 +182,11 @@ public class Runigram {
      * values in the two input color.
      */
     public static Color blend(Color c1, Color c2, double alpha) {
-        //// Replace the following statement with your code
-        return null;
+        int first= (int) (alpha* c1.getRed()+(1-alpha)* c2.getRed());
+        int second= (int) (alpha* c1.getGreen()+(1-alpha)* c2.getGreen());
+        int third= (int) (alpha* c1.getBlue()+(1-alpha)* c2.getBlue());
+
+        return new Color(first,second,third);
     }
 
     /**
@@ -178,8 +196,13 @@ public class Runigram {
      * The two images must have the same dimensions.
      */
     public static Color[][] blend(Color[][] image1, Color[][] image2, double alpha) {
-        //// Replace the following statement with your code
-        return null;
+        Color[][] blendImage=new Color[image1.length][image1[1].length];
+        for (int i = 0; i <image1.length ; i++) {
+            for (int j = 0; j <image1[i].length ; j++) {
+              blendImage[i][j]=blend(image1[i][j],image2[i][j],alpha) ;
+            }
+        }
+        return blendImage;
     }
 
     /**
